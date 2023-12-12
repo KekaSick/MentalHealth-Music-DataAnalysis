@@ -67,7 +67,6 @@ df = df.fillna('NotStated')
 
 # + colab={"base_uri": "https://localhost:8080/", "height": 694} id="K7uRbmrk53y5" outputId="73d549e2-6846-4cd7-ec6e-e6226519ae72"
 #show df with NotStated
-st.write('Cleaned dataset without NotStated')
 st.dataframe(df.head())
 # -
 
@@ -77,6 +76,7 @@ st.dataframe(df.head())
 #
 
 dfcop = dfcop.dropna() #copy without nans and NotStated
+st.write('Cleaned dataset without NotStated')
 st.dataframe(dfcop.head())
 
 # + [markdown] id="nJVjJah46Ai5"
