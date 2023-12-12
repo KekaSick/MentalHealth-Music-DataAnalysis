@@ -58,6 +58,7 @@ st.dataframe(df.head())
 
 # + id="6DmGkB1_yq5J"
 #As you can see no NaNs
+
 df = df.fillna('NotStated')
 
 # + colab={"base_uri": "https://localhost:8080/"} id="dB1W-8hd123Y" outputId="a127f233-3d0f-4b35-c2ba-8495386969c9"
@@ -80,11 +81,11 @@ st.dataframe(dfcop.head())
 # # Now, when we've cleaned our dataset, we can start to analyze it
 # -
 
-# ## All people
+st.header("All people")
 
 # Here i'll check (Yes/No) information in my dataset. I think that this will be interesting. And i think that there is no need in analysis because it is obvious
 
-# ### Check mean, median and standard deviation values for Mental health problems
+st.subheader("Check mean, median and standard deviation values for Mental health problems")
 
 # This shit was in criteria
 
@@ -149,7 +150,8 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # ### Check binary data (Yes/No)
 # Just information(no analysis)
-
+st.subheader("Check binary data (Yes/No)")
+st.write('Just information(no analysis)')
 # +
 #Create new df with a new column 'Calc'
 dfBoolean = dfcop.loc[:,['While working','Instrumentalist','Composer','Exploratory','Foreign languages']]
@@ -207,11 +209,11 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # ### Platform analyze
-
+st.subheader('Platform analyze')
 # #### Check the most popular platform and how much time people spend on different platforms
-
+st.subheader('Check the most popular platform and how much time people spend on different platforms')
 # My hypothesis that the most popular platform is Spotify because it is the most popular in the world.
-
+st.write('My hypothesis that the most popular platform is Spotify because it is the most popular in the world.')
 # +
 #Create a new groupedby df with a new column 'Calc' and then sort it by this column values
 dfPopPlat = df.loc[:,['Primary streaming service']]
@@ -234,9 +236,10 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # I was right
+st.write('I was right')
 
 # Here i'll check the mean value of hours that people spend on music per day for different platforms
-
+st.subheader("Here i'll check the mean value of hours that people spend on music per day for different platforms")
 # + colab={"base_uri": "https://localhost:8080/", "height": 542} id="e5yBtLy0PI0R" outputId="c6f98ba6-cf9a-4bd3-8ccf-f136e911aa57"
 #Create new df
 dfHourPlat = dfcop.loc[:,['Primary streaming service','Hours per day']]
@@ -278,10 +281,11 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # #### Platforms and mental health problems
-
+st.subheader('Platforms and mental health problems')
 # In this dataset there are 4 columns with mental health problems: OCD, Depression, Anxiety and Insomnia.
 # I'll combine them into one abstract "mental problem" by summarizing their values. This will help us to do "easy-to-analyze" plots
-
+st.write("In this dataset there are 4 columns with mental health problems: OCD, Depression, Anxiety and Insomnia.")
+st.write("I'll combine them into one abstract 'mental problem' by summarizing their values. This will help us to do 'easy-to-analyze' plots")
 # +
 #Creating dataframe dfMentalPlat with 5 columns and add another one - 'Sum' by summarazing OCD, Depression, Anxiety and Insomnia columns
 dfMentalPlat = dfcop.loc[:,['Primary streaming service','OCD','Depression','Anxiety','Insomnia']]
@@ -298,7 +302,7 @@ dfMentalPlatMean.sort_values('Sum', ascending=False, inplace=True)
 # -
 
 # I have the hypothesis that the most mental ill platform is a YouTube Music because there is a lot of live streams with different music genres to study. For example lo-fi radio to study and work(Lo-Fi Girl). Core audience of this translations is 15-26 years old people and I think that the most mental health problems pop up in the age of 18. So thats why i think YouTube Music has the vast majority of people with mental health problems.
-
+st.write("I have the hypothesis that the most mental ill platform is a YouTube Music because there is a lot of live streams with different music genres to study. For example lo-fi radio to study and work(Lo-Fi Girl). Core audience of this translations is 15-26 years old people and I think that the most mental health problems pop up in the age of 18. So thats why i think YouTube Music has the vast majority of people with mental health problems.")
 # +
 #first plot with sum values
 fig = px.histogram(
@@ -337,13 +341,13 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was wrong. Apple music has the vast majority of people with mental health problems in mean values. You can say that Spotify has the vast majority of people (in sum) with mental health problems but this is because it is the most popular platform in this dataset.
-
+st.write('My hypothesis was wrong. Apple music has the vast majority of people with mental health problems in mean values. You can say that Spotify has the vast majority of people (in sum) with mental health problems but this is because it is the most popular platform in this dataset.')
 # ### Genre analyze
-
+st.subheader('Genre analyze')
 # #### Check the most popular genre
-
+st.write('Check the most popular genre')
 # There i'll check the most popular genre in dataset. My hypothesis is that this will be a Pop music
-
+st.write("There i'll check the most popular genre in dataset. My hypothesis is that this will be a Pop music")
 # + colab={"base_uri": "https://localhost:8080/", "height": 542} id="CYLPuE5xYUUO" outputId="f29868bb-82dd-461b-c791-55199a517877"
 #Create new df with a new column 'Amount of people'
 dfGen = df.loc[:,['Fav genre']]
@@ -372,11 +376,11 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was wrong. And it is really interesting that Rock is more popular than Pop in this dataset
-
+st.write("My hypothesis was wrong. And it is really interesting that Rock is more popular than Pop in this dataset")
 # #### Trying to find correlations between favourite genre and mental health problems
-
+st.subheader("Trying to find correlations between favourite genre and mental health problems")
 # My hypothesis is that Lo-Fi genre has the most people with mental health problems in mean values. The reasons why i think this way were already told.
-
+st.write("My hypothesis is that Lo-Fi genre has the most people with mental health problems in mean values. The reasons why i think this way were already told.")
 # +
 #Create new df with a new column by summarazing next columns: Anxiety, Depression, Insomnia and OCD
 df_3 = dfcop.loc[:,['Age','Fav genre', 'Anxiety','Depression','Insomnia','OCD','Hours per day']]
@@ -428,9 +432,9 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was right, but you can notice that rock has the greates value in the sum chart. This is because it is the most popular genre in my dataset
-
+st.write("My hypothesis was right, but you can notice that rock has the greates value in the sum chart. This is because it is the most popular genre in my dataset")
 # ### Age analyze
-
+st.subheader('Age analysis')
 # #### Check amount of young, middle age and old people
 
 # Here I'll create 3 dataframes with <u>Young</u>( < 30 y.o.), <u>Middle aged</u>( 50 < and >= 30 ) and <u>Old people</u>( >= 60) to compare their percentage in dataset. This will help us to understand the difference in quantity between all of these groups of people.
@@ -691,7 +695,7 @@ fig.update_layout(
     title='Check for the most popular amount of hours per day'
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>The most popular amount of hours that people spend on music daily is <u>2</u></b><br>
