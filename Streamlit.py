@@ -12,16 +12,16 @@
 #     name: python3
 # ---
 
-# + [markdown] id="amXK4d3DMSqW"
-# # A few words before code
-# -
+import streamlit as st
 
-# Data set - Music & Mental Health Survey Results
-#
-# I've decided to choose this dataset because music is a big part of my life. Every day I listen to my own and others play-lists, lo-fi and indie-rock radios and etc. Sometimes I even make my own riffs, melodies and rythms on the guitar in DAW.
-#
-# When i saw this dataset for the first time, I understood that it can be really interesting to find corellations between person's fav genre, age, fav platform and his mental health problems. How do musicians differ from non-musicians and etc.
-#
+# + [markdown] id="amXK4d3DMSqW"
+
+st.title("A few words before code")
+
+st.subheader('Data set - Music & Mental Health Survey Results')
+st.write("I've decided to choose this dataset because music is a big part of my life. Every day I listen to my own and others play-lists, lo-fi and indie-rock radios and etc. Sometimes I even make my own riffs, melodies and rythms on the guitar in DAW.")
+st.write("When i saw this dataset for the first time, I understood that it can be really interesting to find corellations between person's fav genre, age, fav platform and his mental health problems. How do musicians differ from non-musicians and etc. ")
+
 
 # # Import libraries and show dataset (preparations before work)
 
@@ -34,10 +34,11 @@ from plotly.subplots import make_subplots
 
 # +
 df = pd.read_csv('sample_data/mxmh_survey_results.csv') #read data
+
 dfcop = df.copy(deep=True) #copy of dataset
 
 #show df
-df
+st.dataframe(df.head())
 # -
 
 # # Cleaning
@@ -49,16 +50,6 @@ df
 # + colab={"base_uri": "https://localhost:8080/"} id="zp9YkcBZGxn1" outputId="4dc8801e-a7ed-46d8-e128-cd12b69be73e"
 #we'll check our dataset for empty cells or NaN's or incorrect data
 #as we can see there is only NaNs and no incorrect data
-print(df['Primary streaming service'].unique())
-print(df['Age'].unique())
-print(df['While working'].unique())
-print(df['Instrumentalist'].unique())
-print(df['Composer'].unique())
-print(df['Fav genre'].unique())
-print(df['Exploratory'].unique())
-print(df['Foreign languages'].unique())
-print(df['Music effects'].unique())
-df.isna().sum()
 # -
 
 # #### Work with NaN's
@@ -68,36 +59,13 @@ df.isna().sum()
 # + id="6DmGkB1_yq5J"
 #As you can see no NaNs
 df = df.fillna('NotStated')
-df.isna().sum()
 
 # + colab={"base_uri": "https://localhost:8080/"} id="dB1W-8hd123Y" outputId="a127f233-3d0f-4b35-c2ba-8495386969c9"
 #that's all ellements what we have replaced with NotStated
 
-print(df[df['Age'] == 'NotStated']['Age'])
-print('___________________________________________')
-
-print(df[df['Primary streaming service'] == 'NotStated']['Primary streaming service'])
-print('___________________________________________')
-
-print(df[df['While working'] == 'NotStated']['While working'])
-print('___________________________________________')
-
-print(df[df['Instrumentalist'] == 'NotStated']['Instrumentalist'])
-print('___________________________________________')
-
-print(df[df['Foreign languages'] == 'NotStated']['Foreign languages'])
-print('___________________________________________')
-
-print(df[df['BPM'] == 'NotStated']['BPM'])
-print('___________________________________________')
-
-print(df[df['Music effects'] == 'NotStated']['Music effects'])
-print('___________________________________________')
-
-
 # + colab={"base_uri": "https://localhost:8080/", "height": 694} id="K7uRbmrk53y5" outputId="73d549e2-6846-4cd7-ec6e-e6226519ae72"
 #show df with NotStated
-df
+st.dataframe(df.head())
 # -
 
 #
@@ -106,7 +74,7 @@ df
 #
 
 dfcop = dfcop.dropna() #copy without nans and NotStated
-dfcop
+st.dataframe(dfcop.head())
 
 # + [markdown] id="nJVjJah46Ai5"
 # # Now, when we've cleaned our dataset, we can start to analyze it
@@ -138,7 +106,7 @@ fig.update_layout(
     yaxis_title=''
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #median
 dfMentalMd = dfcop.loc[:,['Anxiety','OCD','Depression','Insomnia']]
@@ -157,7 +125,7 @@ fig.update_layout(
     yaxis_title=''
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #standart deviation
 dfMentalSd = dfcop.loc[:,['Anxiety','OCD','Depression','Insomnia']]
@@ -176,7 +144,7 @@ fig.update_layout(
     yaxis_title=''
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # ### Check binary data (Yes/No)
@@ -195,7 +163,7 @@ fig = px.treemap(
     values='Calc',
     color_discrete_sequence=[px.colors.qualitative.Plotly[0], px.colors.qualitative.Plotly[1]],
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #Plot2
 fig = px.treemap(
@@ -205,7 +173,7 @@ fig = px.treemap(
     values='Calc',
     color_discrete_sequence=[px.colors.qualitative.Plotly[1], px.colors.qualitative.Plotly[0]]
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #Plot3
 fig = px.treemap(
@@ -215,7 +183,7 @@ fig = px.treemap(
     values='Calc',
     color_discrete_sequence=[px.colors.qualitative.Plotly[1], px.colors.qualitative.Plotly[0]]
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #Plot4
 fig = px.treemap(
@@ -225,7 +193,7 @@ fig = px.treemap(
     values='Calc',
     color_discrete_sequence=[px.colors.qualitative.Plotly[0], px.colors.qualitative.Plotly[1]]
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #Plot5
 fig = px.treemap(
@@ -235,7 +203,7 @@ fig = px.treemap(
     values='Calc',
     color_discrete_sequence=[px.colors.qualitative.Plotly[0], px.colors.qualitative.Plotly[1]]
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # ### Platform analyze
@@ -262,7 +230,7 @@ fig = px.bar(
     template="simple_white"
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # I was right
@@ -290,7 +258,7 @@ fig = px.bar(
     color_discrete_sequence=px.colors.qualitative.Plotly
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # +
 #Just show this df again (not necessary)
@@ -306,7 +274,7 @@ fig = px.pie(
     width=1000,
     height=500
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # #### Platforms and mental health problems
@@ -347,7 +315,7 @@ fig.update_layout(
     template='plotly_dark',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 #second plot with mean values
@@ -365,7 +333,7 @@ fig.update_layout(
     template='plotly_dark',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was wrong. Apple music has the vast majority of people with mental health problems in mean values. You can say that Spotify has the vast majority of people (in sum) with mental health problems but this is because it is the most popular platform in this dataset.
@@ -400,7 +368,7 @@ fig.update_layout(
     xaxis_title='<b>Genre</b>'
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was wrong. And it is really interesting that Rock is more popular than Pop in this dataset
@@ -438,7 +406,7 @@ fig.update_layout(
     template='plotly_dark',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 
 #Plot2(Mean values)
@@ -456,7 +424,7 @@ fig.update_layout(
     template='plotly_dark',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # My hypothesis was right, but you can notice that rock has the greates value in the sum chart. This is because it is the most popular genre in my dataset
@@ -495,7 +463,7 @@ fig = px.pie(
     template='plotly_dark',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 #sum of all the people is 616
 #print(Yl+Ml+Ol)
@@ -593,7 +561,7 @@ fig.update_layout(
     yaxis_title='Mental health problem',
     template='plotly_dark',
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>As we can see the highest point on each figure is 18 y.o.</b><br>Also we can notice small pick in 21 y.o.
@@ -612,7 +580,7 @@ fig.update_layout(
     yaxis_title='Mental health problems',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # This is straight up comparison and of course 18 y.o. have the highest value
@@ -632,7 +600,7 @@ fig.update_layout(
     yaxis_title='Mental health problems',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>Here we can see summarized regions for the period of 4 years.</b><br>The greates one is 15-19 y.o.<br>The second greatest is 20-24 y.o.
@@ -651,7 +619,7 @@ fig.update_layout(
     yaxis_title='Mental health problems',
 )
 
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>My hypothesis was right.</b><br>It is actually true that the most stressed year in person's life is the 18-th year. But this results can also appear because of the quantity of Young people( < 30 y.o.) in this dataset (75%). This is why this information may be false in general but for this exact dataset it is true
@@ -679,7 +647,7 @@ fig = px.line(
     title='Plot Corellation between Age and Mental Health Poblems(mean)',
     template='plotly_dark'
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # As I said, they are not evident
 
@@ -692,7 +660,7 @@ fig = px.histogram(
     template='plotly_dark'
     #barmode = 'overlay'
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # ### Hours per day analyze
 
@@ -722,7 +690,8 @@ fig.update_layout(
     yaxis_title ='Amount of People',
     title='Check for the most popular amount of hours per day'
 )
-fig.show()
+
+st.plotly_chart(fig, use_container_width=True)
 # -
 
 # <b>The most popular amount of hours that people spend on music daily is <u>2</u></b><br>
@@ -804,7 +773,7 @@ fig.update_layout(
     yaxis_title='Mental health problem',
     template='plotly_dark',
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>As we can see</b>
@@ -893,7 +862,7 @@ fig.update_layout(
     yaxis_title='Mental health problem',
     template='plotly_dark',
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # ## Difference between musicians and non-musicans
@@ -906,7 +875,7 @@ fig.show()
 dfArt1 = df.drop(df[(df.Instrumentalist == 'No')].index)
 dfArt2 = df.drop(df[df.Composer == 'No'].index)
 dfArt = pd.concat([dfArt1, dfArt2])
-dfArt
+
 
 #Mental problems that musicians have
 dfMentalA = dfArt.loc[:,['Anxiety','Depression','Insomnia','OCD']]
@@ -916,7 +885,7 @@ dfMentalAS = dfMentalA.sum().round(2)
 
 #There I'll create df with only non-musician(df.Instrumentalist == 'No' | df.Composer == 'No')
 dfNoArt= df.drop(df[(df.Instrumentalist == 'Yes')|(df.Composer == 'Yes') ].index)
-dfNoArt
+
 
 #Mental problems that non-musicians have
 dfMentalNoA = dfNoArt.loc[:,['Anxiety','Depression','Insomnia','OCD']]
@@ -948,7 +917,7 @@ fig1 = px.bar(
     width=1000,
     template="simple_white",
 )
-fig1.show()
+st.plotly_chart(fig1, theme="streamlit", use_container_width=True)
 
 
 dfG2 = dfNoArt.loc[:,['Fav genre']]
@@ -968,7 +937,7 @@ fig2 = px.bar(
     width=1000,
     template="simple_white",
 )
-fig2.show()
+st.plotly_chart(fig2, theme="streamlit", use_container_width=True)
 # -
 
 # <b>There is interesting thing that Classical music is listened by only musician in this exact dataset</b>
@@ -976,13 +945,13 @@ fig2.show()
 # #### Difference in Mental health problems
 
 # I have a hypothesis that musicians have more mental health problems than ordinary people
-
+'''
 print(dfMentalAM)
 print(dfMentalAS)
 print('____________________')
 print(dfMentalNoAM)
 print(dfMentalNoAS)
-
+'''
 #Plot
 fig = px.pie(
     values=[17.58, 16.84], 
@@ -993,7 +962,7 @@ fig = px.pie(
     height=500,
     template='plotly',
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # <b>I think my hypothesis was wrong because there is a so small difference(2.2%) that we can count it like a error</b>
 
@@ -1016,7 +985,7 @@ fig = px.pie(
     height=500,
     color_discrete_sequence=[px.colors.qualitative.Plotly[7], px.colors.qualitative.Pastel1[1], px.colors.qualitative.Plotly[1]]
 )
-fig.show()
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>My hypothesis was right</b>
