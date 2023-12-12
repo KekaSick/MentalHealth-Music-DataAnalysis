@@ -38,6 +38,7 @@ df = pd.read_csv('sample_data/mxmh_survey_results.csv') #read data
 dfcop = df.copy(deep=True) #copy of dataset
 
 #show df
+st.write('Not cleaned dataset')
 st.dataframe(df.head())
 # -
 
@@ -58,7 +59,7 @@ st.dataframe(df.head())
 
 # + id="6DmGkB1_yq5J"
 #As you can see no NaNs
-
+st.write('Cleaned dataset with NotStated')
 df = df.fillna('NotStated')
 
 # + colab={"base_uri": "https://localhost:8080/"} id="dB1W-8hd123Y" outputId="a127f233-3d0f-4b35-c2ba-8495386969c9"
@@ -66,6 +67,7 @@ df = df.fillna('NotStated')
 
 # + colab={"base_uri": "https://localhost:8080/", "height": 694} id="K7uRbmrk53y5" outputId="73d549e2-6846-4cd7-ec6e-e6226519ae72"
 #show df with NotStated
+st.write('Cleaned dataset without NotStated')
 st.dataframe(df.head())
 # -
 
@@ -150,7 +152,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # ### Check binary data (Yes/No)
 # Just information(no analysis)
-st.subheader("Check binary data (Yes/No)")
+st.header("Check binary data (Yes/No)")
 st.write('Just information(no analysis)')
 # +
 #Create new df with a new column 'Calc'
@@ -436,7 +438,7 @@ st.write("My hypothesis was right, but you can notice that rock has the greates 
 # ### Age analyze
 st.subheader('Age analysis')
 # #### Check amount of young, middle age and old people
-
+st.subheader("Check amount of young, middle age and old people")
 # Here I'll create 3 dataframes with <u>Young</u>( < 30 y.o.), <u>Middle aged</u>( 50 < and >= 30 ) and <u>Old people</u>( >= 60) to compare their percentage in dataset. This will help us to understand the difference in quantity between all of these groups of people.
 
 # +
@@ -474,11 +476,11 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # #### Correlation between age and mental health problems
-
+st.subheader('Correlation between age and mental health problems')
 # My hypothesis is that the most stressed year in person's life is 18-th year. It is quite logical because in this years there is alot of changes in person's life style in general. 
-
+st.write("My hypothesis is that the most stressed year in person's life is 18-th year. It is quite logical because in this years there is alot of changes in person's life style in general.")
 # ##### Sum(Age)
-
+st.subheader('Sum(Age)')
 # +
 #Create new df, add new column with a sum of mental problems and groupby it by age 
 df3d = dfcop.loc[:,['Age','Anxiety','Depression','Insomnia','OCD']]
@@ -569,7 +571,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>As we can see the highest point on each figure is 18 y.o.</b><br>Also we can notice small pick in 21 y.o.
-
+st.write("As we can see the highest point on each figure is 18 y.o. Also we can notice small pick in 21 y.o.")
 # +
 #Plot with a comparasion of mental problems
 fig = px.line(
@@ -588,7 +590,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # This is straight up comparison and of course 18 y.o. have the highest value
-
+st.write("This is straight up comparison and of course 18 y.o. have the highest value")
 # +
 #Histogram to show the sum
 fig = px.histogram(
@@ -608,7 +610,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>Here we can see summarized regions for the period of 4 years.</b><br>The greates one is 15-19 y.o.<br>The second greatest is 20-24 y.o.
-
+st.write("Here we can see summarized regions for the period of 4 years. The greates one is 15-19 y.o. The second greatest is 20-24 y.o.")
 # +
 #Line graph with a sum
 fig = px.line(
@@ -627,11 +629,11 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>My hypothesis was right.</b><br>It is actually true that the most stressed year in person's life is the 18-th year. But this results can also appear because of the quantity of Young people( < 30 y.o.) in this dataset (75%). This is why this information may be false in general but for this exact dataset it is true
-
+st.write("My hypothesis was right. It is actually true that the most stressed year in person's life is the 18-th year. But this results can also appear because of the quantity of Young people( < 30 y.o.) in this dataset (75%). This is why this information may be false in general but for this exact dataset it is true")
 # ##### Mean(Age)
-
+st.subheader("Mean(Age)")
 # <b>This is the same graphs but with mean values instead of sum values.</b><br>They are not so clear and evident as the previouse ones and this is why I won't analyse them, just show.
-
+st.write("This is the same graphs but with mean values instead of sum values. They are not so clear and evident as the previouse ones and this is why I won't analyse them, just show.")
 # +
 df3d = dfcop.loc[:,['Age','Anxiety','Depression','Insomnia','OCD']]
 
@@ -654,7 +656,7 @@ fig = px.line(
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # As I said, they are not evident
-
+st.write("As I said, they are not evident")
 #Plot
 fig = px.histogram(
     df3d, 
@@ -667,11 +669,11 @@ fig = px.histogram(
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # ### Hours per day analyze
-
+st.header("Hours per day analyze")
 # #### Check for the most popular amount of hours per day
-
+st.subheader("Check for the most popular amount of hours per day")
 # Here I'll find the most popular amount of time that people spend on music daily.<br>This will help us with the future graphs
-
+st.write("Here I'll find the most popular amount of time that people spend on music daily. This will help us with the future graphs")
 # +
 #Create new df with new column 'Sum'
 dfH = dfcop.loc[:,['Hours per day']]
@@ -699,14 +701,17 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>The most popular amount of hours that people spend on music daily is <u>2</u></b><br>
+st.write("he most popular amount of hours that people spend on music daily is 2")
 # <b>Second</b> place holds <u>3 hours</u><br>
+st.write("Second place holds 3 hours")
 # <b>Third</b> one is for <u>1 hour</u><br>
+st.write("Third one is for 1 hour")
 # And <b>fourth</b> place is for <u>4 hours</u>
-
+st.write("Fourth place is for 4 hours")
 # #### Corellation between hours and mental health problems
-
+st.subheader("Corellation between hours and mental health problems")
 # ##### Sum(Hours)
-
+st.write("Sum(Hours)")
 #Create new df and groupby it by 'Hours per day'
 df3dH = dfcop.loc[:,['Anxiety','Depression','Insomnia','OCD','Hours per day']]
 df3dH = df3dH.groupby('Hours per day', as_index= False).sum()
@@ -786,16 +791,19 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # <br>4 hours have 3rd
 # <br>1 hour have 4th
 # <b>
+st.write("As we can see, 2 hours per day have the first place, 3 hours have the second, 4 hours have the third, 1 has have the fourth")
 # <br>It is really interesting because there is more people who spend 1 hour than 4 hours daily on music.
+st.write("It is really interesting because there is more people who spend 1 hour than 4 hours daily on music. But still, people who spend 4 hours have the sum with more mental health problems than people who spend 1 hour")
 # <br>But still, people who spend 4 hours have the sum with more mental health problems than people who spend 1 hour.
 # </b>
 # <br>Other places match with previouse plot
+st.write("Other places match with previouse plot")
 #
 
 # ##### Mean(Hours)
-
+st.subheader("Mean(Hours)")
 # This graph is not for my analysis, i just want to show it
-
+st.write("This graph is not for my analysis, i just want to show it")
 #Create df and groupby by 'Hours per day'
 df3dH = dfcop.loc[:,['Anxiety','Depression','Insomnia','OCD','Hours per day']]
 df3dH = df3dH.groupby('Hours per day', as_index= False).mean()
@@ -870,9 +878,9 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # ## Difference between musicians and non-musicans
-
+st.header("Difference between musicians and non-musicans")
 # There I'll try to find some difference between musicians and not a musicians
-
+st.write("There I'll try to find some difference between musicians and not a musicians")
 # ### Separate musicians and non-muscians
 
 #There I'll create df with only musician(df.Instrumentalist == 'Yes' or df.Composer == 'Yes')
@@ -898,11 +906,11 @@ dfMentalNoAM = dfMentalNoA.mean().round(2)
 dfMentalNoAS = dfMentalNoA.sum().round(2)
 
 # ### Trying to find corelations and difference between Musicians and Non-Musicians
-
+st.subheader("Trying to find difference between Musicians and Non-Musicians")
 # There I'll compare favourite genres that musicians and non-musicians have
-
+st.write("There I'll compare favourite genres that musicians and non-musicians have")
 # #### Difference in favourite genres
-
+st.subheader("Difference in favourite genres")
 # +
 dfG = dfArt.loc[:,['Fav genre']]
 
@@ -945,17 +953,12 @@ st.plotly_chart(fig2, theme="streamlit", use_container_width=True)
 # -
 
 # <b>There is interesting thing that Classical music is listened by only musician in this exact dataset</b>
-
+st.write("There is interesting thing that Classical music is listened by only musician in this exact dataset")
 # #### Difference in Mental health problems
-
+st.subheader("Difference in Mental health problems")
 # I have a hypothesis that musicians have more mental health problems than ordinary people
-'''
-print(dfMentalAM)
-print(dfMentalAS)
-print('____________________')
-print(dfMentalNoAM)
-print(dfMentalNoAS)
-'''
+st.write("I have a hypothesis that musicians have more mental health problems than ordinary people")
+
 #Plot
 fig = px.pie(
     values=[17.58, 16.84], 
@@ -969,12 +972,13 @@ fig = px.pie(
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 # <b>I think my hypothesis was wrong because there is a so small difference(2.2%) that we can count it like a error</b>
-
+st.write("I think my hypothesis was wrong because there is a so small difference(2.2%) that we can count it like an error")
 # # Conclusion
-
+st.header("Conclusion")
 # There is last column my dataset that I want to check. This column gives us information about music's help with mental health problems
 # <br>My hypothesis that music will help the vast majority of people
-
+st.write("There is last column my dataset that I want to check. This column gives us information about music's help with mental health problems")
+st.write("My hypothesis that music will help the vast majority of people")
 # +
 #Create df
 dfHealth = dfcop.loc[:,['Music effects']]
@@ -993,3 +997,4 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # -
 
 # <b>My hypothesis was right</b>
+st.write('My hypothesis was right')
